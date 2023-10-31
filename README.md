@@ -1,50 +1,48 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
 
-(__TODO__: your project name)
-
-# Shoppy Shoperson 
+# Recommendo - explore movies from all over the world. 
 
 ## Overview
+There are a lot of movies out there to watch. When your mate suggests you a movie saying it is the best they have ever seen, you know it might go either way. Instead of scrolling through endless recommendation of movies and hoping that you find something interesting, you should directly be able to watch the movie depending on your preferences. <u>**This is where Recommendo comes in.**</u>
 
-(__TODO__: a brief one or two paragraph, high-level description of your project)
-
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
-
+Recommendo allows you to keep track of your watchlist, recommend new and popular movies from all across the world. Heck, if you want to try something different, it will help you choose that too.
 
 ## Data Model
 
-(__TODO__: a description of your application's data and their relationships to each other) 
+The application will store User Information, Movies and Actors.
 
-The application will store Users, Lists and Items
-
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
-
-(__TODO__: sample documents)
+* users can prefer multiple movies.
+* each movie can be prefered by more than one users.
+*
 
 An Example User:
 
 ```javascript
 {
-  username: "shannonshopper",
+  username: "Andy Dufresne",
   hash: // a password hash,
-  lists: // an array of references to List documents
+  preferences: // list of favorite movies.
+  genres: // list of favorite genres.
+  recentlyWatched: // list of recently watched movies.
 }
 ```
-
-An Example List with Embedded Items:
-
+An Example movies document
 ```javascript
 {
-  user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
-  ],
-  createdAt: // timestamp
+  movieId: //Id for the movie.
+  movieName: "Shawshank Redemption",
+  ratings: //ratings for the movie.
+  actorId: //list of actors that feature in the movie.
+  region: //region for this version of the title.
+  time: //primary runTime of the movie.
+  imageId: //poster for the image.
+}
+```
+An Example Actors document
+```javascript
+{
+    actorId: //Unique identifier for the actor.
+    name: "Morgan Freeman" ,//name of the actor.
+    movies: //list of movies that the actor has featured in.
 }
 ```
 

@@ -8,11 +8,11 @@ Recommendo allows you to keep track of your watchlist, recommend new and popular
 
 ## Data Model
 
-The application will store User Information, Movies and Actors.
+The application will store User, User Information, Movies db and Actors db.
 
-* users can prefer multiple movies.
+* User contains relevant information about the user
 * each movie can be prefered by more than one users.
-*
+* each actor can 
 
 An Example User:
 
@@ -49,40 +49,41 @@ An Example Actors document
 
 ## [Link to Commented First Draft Schema](db.mjs) 
 
-(__TODO__: create a first draft of your Schemas in db.mjs and link to it)
-
 ## Wireframes
 
-(__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
+/ - homepage for the web app
 
-/list/create - page for creating a new shopping list
+![homepage](documentation/homePage.jpg)
 
-![list create](documentation/list-create.png)
+/addFavorite - page for adding favorite movies
 
-/list - page for showing all shopping lists
+![favorites](documentation/favorites.jpg)
 
-![list](documentation/list.png)
+/edit - page for editing preferences such as genres and actors and region
 
-/list/slug - page for showing specific shopping list
+![preferences](documentation/preferences.jpg)
 
-![list](documentation/list-slug.png)
+/recommended - page for displaying recommendations based on preferences
+
+![recommendation](documentation/recommendation.jpg)
+
+/newpicks - page for displaying movies outside one's favorites.
+
+![newPicks](documentation/newPicks.jpg)
+
 
 ## Site map
 
-(__TODO__: draw out a site map that shows how pages are related to each other)
-
-Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
+![siteMap](documentation/siteMap.jpeg)
 
 ## User Stories or Use Cases
 
-(__TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://en.wikipedia.org/wiki/Use_case))
+1. As non-registered user, I can register a new account with the site
+2. As a user, I can log in to the site
+3. As a user, I can update my preferences based on genres and actors.
+4. As a user, I can view new releases based on my preference
 
-1. as non-registered user, I can register a new account with the site
-2. as a user, I can log in to the site
-3. as a user, I can create a new grocery list
-4. as a user, I can view all of the grocery lists I've created in a single list
-5. as a user, I can add items to an existing grocery list
-6. as a user, I can cross off items in an existing grocery list
+5. As a user, I can view recommendations based on my preferences.
 
 ## Research Topics
 
@@ -104,7 +105,6 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## [Link to Initial Main Project File](app.mjs) 
 
-(__TODO__: create a skeleton Express application with a package.json, app.mjs, views folder, etc. ... and link to your initial app.mjs)
 
 ## Annotations / References Used
 

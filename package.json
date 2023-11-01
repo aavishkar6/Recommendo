@@ -1,0 +1,15 @@
+{
+  "name": "final-project-aavishkar6",
+  "version": "1.0.0",
+  "description": "## Overview There are a lot of movies out there to watch. When your mate suggests you a movie saying it is the best they have ever seen, you know it might go either way. Instead of scrolling through endless recommendation of movies and hoping that you find something interesting, you should directly be able to watch the movie depending on your preferences. <u>**This is where Recommendo comes in.**</u>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

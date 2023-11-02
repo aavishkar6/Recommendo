@@ -8,41 +8,48 @@ Recommendo allows you to keep track of your watchlist, recommend new and popular
 
 ## Data Model
 
-The application will store User, User Information, Movies db and Actors db.
+The application will store User Information, Movies and People collections.
 
-* User contains relevant information about the user
-* each movie can be prefered by more than one users.
-* each actor can 
+* User Information contains relevant information about the user.
+* Movies contain information about the movie.
+* Actor contains information about the Actor.
 
 An Example User:
 
 ```javascript
 {
   username: "Andy Dufresne",
-  hash: // a password hash,
-  preferences: // list of favorite movies.
+  password: // a password hash,
+  email: // list of favorite movies.
   genres: // list of favorite genres.
-  recentlyWatched: // list of recently watched movies.
+  recentlyWatched: // list of recently watched movies. { references Movie document}
+  favorites: // list of favorite movie { references Movie document}
+  people: //favorite actor or director for the User.
 }
 ```
 An Example movies document
 ```javascript
 {
-  movieId: //Id for the movie.
-  movieName: "Shawshank Redemption",
-  ratings: //ratings for the movie.
-  actorId: //list of actors that feature in the movie.
+  movieId: //Unique identifier for the movie
+  title: "Shawshank Redemption",
+  year: // year of release
+  genres: //genre of movie
+  rating: //rating for the movie.
+  actors: //list of actors that feature in the movie. (references People document)
+  director: //list of director for the movie.(references People document)
+  description: //short summary of the movie
+  image: //poster for the image.
   region: //region for this version of the title.
   time: //primary runTime of the movie.
-  imageId: //poster for the image.
 }
 ```
 An Example Actors document
 ```javascript
 {
-    actorId: //Unique identifier for the actor.
+    peopleId: //Unique identifier for the actor.
     name: "Morgan Freeman" ,//name of the actor.
     movies: //list of movies that the actor has featured in.
+    image: //image associated with the person
 }
 ```
 
@@ -87,29 +94,17 @@ An Example Actors document
 
 ## Research Topics
 
-(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
-
-* (5 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (4 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (5 points) vue.js
-    * used vue.js as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
-
-10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit)
-
+* (4 points) Include some sort of movie API to get the data.
+  * I am looking to include some kind of movie API to query the movie and store it in the database. I will not be storing all of the movies in the database.
+* (4 points) Perform client side validation using jQuery.
+  * I want to perform client-side form validation using jquery plugin.
+* (4 points) Recommendation algorithm.
+  * I am looking into implemeting some sort of recommender system that recommends movies to the user.
 
 ## [Link to Initial Main Project File](app.mjs) 
 
-
 ## Annotations / References Used
 
-(__TODO__: list any tutorials/references/etc. that you've based your code off of)
 
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
-2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
-
+1. [movies database](https://rapidapi.com/SAdrian/api/moviesdatabase/) - Api that I plan on using for this project.
+2. [Recommendation systems](https://www.nvidia.com/en-us/glossary/data-science/recommendation-system/) - Article on recommendation systems.

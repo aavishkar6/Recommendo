@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<htm>
+    <head>
+        <title>{{title}}</title>
+    </head>
+    <body>
+        {{!< layouts/main }}
+        <h1>Search for your favorite movies and add it to your collection.</h1><br>
+        <div class="addMovie">
+            <form action="/add" method="GET">
+                <label for="movie">Search for a movie</label>
+                <input type="text" name="movie">
+                <input type="submit" value="Find">
+            </form>
+        </div>
+    </body>
+</htm>

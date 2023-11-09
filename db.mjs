@@ -22,17 +22,14 @@ const User = new moongoose.Schema({
 
 //Movie Schema.
 const Movie = new moongoose.Schema({
-    movieId: { type: String, required: true },
+    movieId : { type: String, required: true },
     title : { type: String, required: true },
-    year :  { type: String, required: true },
-    genres : { type: Array, required: true },
-    rating : Number,
-    actors : [{ type: moongoose.Schema.Types.ObjectId, ref: 'People' }],
-    director : [{ type: moongoose.Schema.Types.ObjectId, ref: 'People' }],
-    description : String,
-    image : String,
-    region : String,
-    time : Number,
+    release_date :  { type: String, required: true },
+    overview : String,
+    vote_average : Number,
+    genres : Array ,
+    posterPath : String,
+    //actors : [{ type: moongoose.Schema.Types.ObjectId, ref: 'People' }], 
 });
 
 //People Schema.
@@ -44,8 +41,9 @@ const People = new moongoose.Schema({
 })
 
 //My models goes here.
-const UserModel = moongoose.model('User', User);
-const MovieModel = moongoose.model('Movie', Movie);
-const PeopleModel = moongoose.model('People', People);
+moongoose.model('User', User);
+moongoose.model('Movie', Movie);
+moongoose.model('People', People);
 
-
+const user = moongoose.model('User');
+const movie = moongoose.model('Movie');

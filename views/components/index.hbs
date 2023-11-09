@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> {{title}} </title>
+        
+    </head>
+    <body>
+        {{!< layouts/main }}
+        <h1> Your favorite Movies </h1>
+            <div class="Movie">
+                {{#each favorites}}
+                <div class="movie-details">
+                    <img class="movie-poster" src="https://image.tmdb.org/t/p/original{{posterPath}}" alt={{title}}>
+                    <div class="movie-info">
+                        <h1 class="movie-title">{{title}}</h1>
+                        Release Date: <p class="movie-release-date">{{release_date}}</p>
+                        Overview: <p class="movie-overview">{{overview}}</p>
+                        Rating: <p class="movie-rating">{{vote_average}}</p>
+                        Genres: <p class="movie-genres">{{genre_ids}}</p>
+                        Popularity: <p class="movie-popularity">{{popularity}}</p>
+                        <p class="movie-id">{{id}}</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+    </body>
+</html>

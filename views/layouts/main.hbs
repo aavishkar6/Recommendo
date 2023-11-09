@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {{!-- <title>Recommendo</title> --}}
+        <link rel="stylesheet" href="stylesheets/main.css">
+    </head>
+    <body>
+        <div id="container"></div>
+            <header>
+                <h1> Recommendo </h1>
+                <h3> Find your favorite movies and T.V shows from all over the world.</h3>
+            </header>
+            <nav>
+                <div class = "nav">
+                    <ul>
+                        <li><a href="/">Home Page</a></li>
+			            <li><a href="/add">Add Favorites</a></li>
+			            <li><a href="/edit">Edit Preference</a></li>
+                        <li><a href="/recommend">Recommend Me</a></li>
+                        <li><a href="/new">Let's Try New</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="content">
+                {{{ body }}}
+            </div>
+    </body>
+</html>

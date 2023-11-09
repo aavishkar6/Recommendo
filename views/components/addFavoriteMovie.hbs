@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<htm>
+    <head>
+        <title>{{title}}</title>
+    </head>
+    <body>
+        {{!< layouts/main }}
+        <h1> <a href='/add'>Search Movies</a></h1>
+        <h1>Search Results</h1>
+        <div class="Movie">
+            {{#each movies}}
+            <div class="movie-details">
+                <img class="movie-poster" src="https://image.tmdb.org/t/p/original{{poster_path}}" alt={{title}}>
+                <div class="movie-info">
+                    <h1 class="movie-title">{{title}}</h1>
+                    Release Date: <p class="movie-release-date">{{release_date}}</p>
+                    Overview: <p class="movie-overview">{{overview}}</p>
+                    Rating: <p class="movie-rating">{{vote_average}}</p>
+                    Genres: <p class="movie-genres">{{genre_ids}}</p>
+                    Popularity: <p class="movie-popularity">{{popularity}}</p>
+                    <p class="movie-id">{{id}}</p>
+                    <button class="add-to-favorites">Add to Favorites</button>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </body>
+    <script> 
+        // JavaScript to handle the "Add to Favorites" button click
+        const addToFavoritesButtons = document.querySelectorAll('.add-to-favorites');
+
+        addToFavoritesButtons.forEach( button => {
+            button.addEventListener('click', addToFavorites);
+        });
+
+        function addToFavorites(event) {
+            const movieContainer = event.target.closest('.movie-details');
+            const movieName = movieContainer.querySelector('.movie-title').textContent;
+            const releaseDate = movieContainer.querySelector('.movie-release-date').textContent;
+            const overview = movieContainer.querySelector('.movie-overview').textContent;
+            const rating = movieContainer.querySelector('.movie-rating').textContent;
+            const genres = movieContainer.querySelector('.movie-genres').textContent;
+            const movieId = movieContainer.querySelector('.movie-id').textContent;
+            const moviePoster = movieContainer.querySelector('.movie-poster').src;
+            console.log(movieId)
+            console.log(movieName);
+            alert(`Movie added to favorites! Movie title was ${movieName}`);
+
+            async function postJSON(data) {
+                try {
+                    const response = await fetch("/add", {
+                    method: "POST", // or 'PUT'
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                    });
+
+                    const result = await response.json();
+                    console.log("Success:", result);
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            }
+
+            const data = { 
+                movieId : movieId,
+                title: movieName,
+                release_date: releaseDate,
+                overview: overview,
+                vote_average: rating,
+                genre_ids: genres,
+                poster_path: moviePoster
+                };
+            postJSON(data);
+        }
+    </script>
+</htm>

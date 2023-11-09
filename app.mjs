@@ -1,3 +1,4 @@
+import './config.mjs'
 import './db.mjs';
 //import routers
 import authRouter from './authRouter.mjs';

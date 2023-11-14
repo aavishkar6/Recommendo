@@ -2,11 +2,11 @@
 <htm>
     <head>
         <title>{{title}}</title>
-        <header>RECOMMENDO<br>Find Movies you love.</header>
     </head>
     <body>
         {{!< layouts/auth }}
         <br><br><br>
+        <h1>{{title}}</h1>
         <h3>If you are a new user, please <a href='/signup'>Sign up</a> here</h3>
         {{#if error}}
             <div style="color:red;">{{error}}</div>
@@ -15,7 +15,6 @@
         <br>
         <div id ="form">
             <form method="POST" action="/login">
-                Email :<input type="email" name="email">
                 UserName :<input type="text" name="username">
                 Password: <input type="password" name="password">
                 <input type="submit">

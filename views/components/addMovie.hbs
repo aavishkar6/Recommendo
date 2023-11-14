@@ -2,16 +2,45 @@
 <htm>
     <head>
         <title>{{title}}</title>
+        <link rel="stylesheet" href="stylesheets/search.css">
+        <script defer src ="scripts/addFavoriteMovie.js"></script>
     </head>
     <body>
         {{!< layouts/main }}
-        <h1>Search for your favorite movies and add it to your collection.</h1><br>
-        <div class="addMovie">
-            <form action="/add" method="GET">
-                <label for="movie">Search for a movie</label>
-                <input type="text" name="movie">
-                <input type="submit" value="Find">
-            </form>
+        <h1>Search for your favorite or recently watched movies and add it to your collection.</h1><br>
+        <div class="searchForm">
+            <form method="GET" action="/add">
+                <input type="text" name="movie" placeholder="Search for a movie">
+                <input type="submit" value="Search">
         </div>
+
+        {{#if movies}}
+            <h1> Search Results for {{search}} </h1>
+            <div class="container">
+                {{#each movies}}
+                    <div class="movie-card">
+                        <img class="movie-image" src="https://image.tmdb.org/t/p/original{{poster_path}}" alt="Movie Poster"/>
+                        <div class="movie-info">
+                            <h2 class="movie-title">{{title}}</h2>
+                            <p class="movie-genres">{{genre_ids}}</p>
+                            <p class="movie-release-date">Release Date: {{release_date}}</p>
+                            <p class="movie-popularity">Popularity: {{popularity}}</p>
+                            <p class="movie-description">
+                                {{overview}}
+                            </p>
+                            <p class="movie-id">{{id}}</p>
+                            <button class="add-to-favorites">Add to Favorites</button>
+                            <button class="add-to-recents">Add to Recently Watched</button>
+                        </div>
+                    </div>        
+                {{/each}}
+            </div>
+        {{else}}
+            {{#if search}}
+                <h1 class="noresult"> No results found for {{ search }} </h1>
+            {{/if}}
+        {{/if}}
+
     </body>
+    
 </htm>

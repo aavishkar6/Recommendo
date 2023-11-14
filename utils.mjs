@@ -1,6 +1,8 @@
 import axios from 'axios';
 import mongoose from 'mongoose';
-import './db.mjs'
+import './db.mjs';
+// import genre from './genreId.json' assert { type: "json" };
+import fs from 'fs';
 
 const Movie = mongoose.model('Movie');
 const User = mongoose.model('User');
@@ -35,17 +37,15 @@ export async function findMovie(movieId) {
 export async function getFavorite(username){
     try {
         const user = await User.findOne(
-            { username: username },
+            { username: username }
         )
-        console.log(user)
+        //console.log('user is ', user)
         const movies = []
-        user.favorites.forEach(async (objectId) => {
-            console.log(objectId)
+        await user.favorites.forEach( async (objectId) => {
             const movie = await Movie.findOne({ _id: objectId });
-            console.log(movie)
             movies.push(movie)
         })
-        console.log(movies)
+
         return movies
     } catch (error) {
         console.log(error)
@@ -53,7 +53,38 @@ export async function getFavorite(username){
     }  
 }
 
-// export default (
-//     getMovies,
-//     findMovie
-// )
+export async function getRecents(username){
+    try {
+        const user = await User.findOne(
+            { username: username }
+        )
+        //console.log('user is ', user)
+        const recents = []
+        await user.recentlyWatched.forEach( async (objectId) => {
+            const movie = await Movie.findOne({ _id: objectId });
+            recents.push(movie)
+        })
+        return recents
+    } catch ( error ){
+        console.log(error)
+        return error
+    }
+
+}
+
+export function getGenre(genre_ids){
+    //import json file named genre.json
+    const response = fs.readFile( './genreId.json', 'utf8', (err, data) => {
+        if (err) {
+            console.log(`Error reading file from disk: ${err}`);
+        } else {
+            const genre = JSON.parse(data);
+            let res = ''
+            genre_ids.forEach(id => {
+                res += genre[id] + ','
+            })
+            return res
+        }
+    });
+    return response
+}

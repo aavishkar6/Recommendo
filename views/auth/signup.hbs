@@ -9,7 +9,10 @@
         {{#if error}}
             <h3 style="color:red;">{{error}}</h3>
         {{/if}}
-        <h1>This is the signup page.</h1>
+        <h1>{{title}}</h1>
+        {{#if success}}
+            <h3 style="color:green;">{{success}}</h3>
+        {{/if}}
         <h1>Go to the <a href="/login">Login Page</a></h1>
         <div id ="form">
             <form method="POST" action="/signup">

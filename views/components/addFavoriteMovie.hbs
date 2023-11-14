@@ -2,6 +2,7 @@
 <htm>
     <head>
         <title>{{title}}</title>
+        <script = "scripts/addFavoriteMovie.js"></script>
     </head>
     <body>
         {{!< layouts/main }}
@@ -25,54 +26,5 @@
             {{/each}}
         </div>
     </body>
-    <script> 
-        // JavaScript to handle the "Add to Favorites" button click
-        const addToFavoritesButtons = document.querySelectorAll('.add-to-favorites');
-
-        addToFavoritesButtons.forEach( button => {
-            button.addEventListener('click', addToFavorites);
-        });
-
-        function addToFavorites(event) {
-            const movieContainer = event.target.closest('.movie-details');
-            const movieName = movieContainer.querySelector('.movie-title').textContent;
-            const releaseDate = movieContainer.querySelector('.movie-release-date').textContent;
-            const overview = movieContainer.querySelector('.movie-overview').textContent;
-            const rating = movieContainer.querySelector('.movie-rating').textContent;
-            const genres = movieContainer.querySelector('.movie-genres').textContent;
-            const movieId = movieContainer.querySelector('.movie-id').textContent;
-            const moviePoster = movieContainer.querySelector('.movie-poster').src;
-            console.log(movieId)
-            console.log(movieName);
-            alert(`Movie added to favorites! Movie title was ${movieName}`);
-
-            async function postJSON(data) {
-                try {
-                    const response = await fetch("/add", {
-                    method: "POST", // or 'PUT'
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                    });
-
-                    const result = await response.json();
-                    console.log("Success:", result);
-                } catch (error) {
-                    console.error("Error:", error);
-                }
-            }
-
-            const data = { 
-                movieId : movieId,
-                title: movieName,
-                release_date: releaseDate,
-                overview: overview,
-                vote_average: rating,
-                genre_ids: genres,
-                poster_path: moviePoster
-                };
-            postJSON(data);
-        }
-    </script>
+    
 </htm>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<htm>
+    <head>
+        <title>{{title}}</title>
+        <script defer src ="scripts/removeMovie.js"></script>
+    </head>
+    <body>
+        {{!< layouts/main }}
+        <h1>Recently Watched Movies</h1>
+        <div class="container">
+            {{#each movies}}
+                <div class="movie-card">
+                    <img class="movie-image" src="https://image.tmdb.org/t/p/original{{posterPath}}" alt="Movie Poster"/>
+                    <div class="movie-info">
+                        <h2 class="movie-title">{{title}}</h2>
+                        <p class="movie-genres">{{genre_ids}}</p>
+                        <p class="movie-release-date">Release Date: {{release_date}}</p>
+                        <p class="movie-popularity">Popularity: {{popularity}}</p>
+                        <p class="movie-description">
+                            {{overview}}
+                        </p>
+                        <p class="movie-id">{{id}}</p>
+                        <button class="remove">Remove from recents</button>
+                    </div>
+                </div>        
+            {{/each}}
+        </div>
+    </body>
+</htm>

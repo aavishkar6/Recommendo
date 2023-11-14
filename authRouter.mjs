@@ -1,8 +1,9 @@
 import express from 'express';
 import passport from 'passport';
 import mongoose from 'mongoose';
-import './db.mjs';
 import argon2 from 'argon2';
+import './db.mjs';
+//import argon2 from 'argon2';
 
 // construct User model from User schema
 const User = mongoose.model('User');
@@ -29,7 +30,6 @@ authRouter.get('/signup', (req, res) => {
 
 authRouter.post('/signup', async (req, res) => { 
     //Handle form data here and user creation
-    console.log('hami yaha chau')
 
     const pattern = new RegExp(`^${req.body.username}`,'i'); 
     const user = await User.findOne({ username: { $regex: pattern } });
@@ -38,17 +38,17 @@ authRouter.post('/signup', async (req, res) => {
         if ( user ) {
             console.log('User already exists. Please choose another username.')
             const message = 'User already exists. Please choose another username.'
-            res.render('auth/signup', { error : message});
+            res.render('auth/signup', { layout : 'layouts/auth.hbs', error : message});
         } else {
             const u = new User({
                 username: req.body.username,
                 password: await argon2.hash(req.body.password),
+                //password: req.body.password,
                 email: req.body.email
             });
         const user = await u.save();
-        console.log(user);
         console.log('user info received');
-        res.render('auth/success', { title: 'Success' });
+        res.render('auth/signup', { title: 'Success', layout :'layouts/auth.hbs', success: 'User created Successfully. Please log-in.' });
         }
     } catch(err){
         console.log(err);

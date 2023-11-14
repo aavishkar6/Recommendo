@@ -1,69 +1,82 @@
-/* Reset some default browser styles */
-body, h1, h3 {
-    margin: 0;
-    padding: 0;
-}
+/* Main Stylesheet */
+
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    background-color: #e2e2e2; /* Softer background color */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
 }
 
 header {
-    background-color: #0077B6;
+    background-color: #4a69bd; /* Modern blue */
     color: #fff;
-    text-align: center;
-    padding: 20px;
-}
-
-#content {
-    text-align: center;
-    margin: 20px;
-}
-
-h1 {
-    font-size: 24px;
-    color: #0077B6;
-}
-
-h3 {
-    font-size: 16px;
-    color: #333;
+    padding: 20px 0;
+    border-bottom: 5px solid #3c6382; /* Darker blue border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adding shadow */
+    font-size: 30px; /* Larger font size */
 }
 
 a {
-    color: #0077B6;
+    color: #60a3bc;
     text-decoration: none;
 }
 
 a:hover {
+    color: #3c6382;
     text-decoration: underline;
 }
 
-form {
-    display: inline-block;
-    background-color: #fff;
+#form {
+    background: white;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    display: inline-block;
+    text-align: left;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Adding shadow */
+    width: 300px; /* Fixed width */
 }
 
-input {
-    display: block;
+#form form {
+    margin: 0;
+}
+
+#form input[type=email], 
+#form input[type=text], 
+#form input[type=password] {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px;
     margin: 10px 0;
-    padding: 5px;
-    width: 100%;
+    display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box;
 }
 
-input[type="submit"] {
-    background-color: #0077B6;
-    color: #fff;
+#form input[type=submit] {
+    width: 100%;
+    background-color: #78e08f; /* Light green */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
     border: none;
+    border-radius: 5px; /* Rounded corners */
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adding shadow */
 }
 
-input[type="submit"]:hover {
-    background-color: #005b8e;
+#form input[type=submit]:hover {
+    background-color: #38ada9; /* Darker green */
 }
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #form {
+        width: auto; /* Adapt to smaller screens */
+    }
+}
+

@@ -4,7 +4,7 @@ import './db.mjs';
 import authRouter from './authRouter.mjs';
 import profileRouter from './profileRouter.mjs';
 //import util functions
-import { getMovies, findMovie, getFavorite } from './utils.mjs'
+import { getMovies, findMovie, getFavorite, getGenre, getRecents } from './utils.mjs'
 //import dependencies
 import mongoose from 'mongoose';
 import { ObjectID } from 'mongoose/lib/schema/index.js';
@@ -31,13 +31,6 @@ const __dirname = path.dirname(__filename);
 const User = mongoose.model('User');
 const Movie = mongoose.model('Movie');
 
-// configure templating engine
-// app.engine('hbs', exphbs({
-//     extname: 'hbs',
-//     defaultLayout: 'main',
-//     layoutsDir: path.join(__dirname, 'views/layouts')
-// }));
-
 app.set('view engine', 'hbs');
 
 // static file serving middlware
@@ -62,6 +55,7 @@ passport.use(new LocalStrategy(
         const user = await User.findOne({ username: username })
         if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
         const isPasswordValid = await argon2.verify(user.password, password)
+        //const isPasswordValid = user.password === password;
         if (!isPasswordValid) { return done(null, false, { message: 'Incorrect password.' }); }
         return done(null, user);
     }
@@ -89,24 +83,56 @@ function isAuthenticated(req, res, next) {
 // redirect all of the authentication routes to authRouter
 app.use('/', authRouter);
 
+//redirect all of the profile routes to profileRouter
+app.use('/', profileRouter);
+
+// redirect all of profile routes to profileRouter
 app.use('/profile', profileRouter);
 
+// also redirect componenets to componenetsRouter. Needs to be worked on
 app.get('/', isAuthenticated, async (req, res) => {
-    //const movies = get_movies();
+    // get favorites of the user
     const favorites = await getFavorite(req.user.username);
+    console.log(favorites)
+    // parse the genre_ids and release_date
+    if ( favorites.length !== 0 ){  
+        favorites.forEach( async movie => {
+            console.log('genre id is ', movie.genre_ids)
+            movie.release_date = movie.release_date.split('-')[0]
+        })
+    }
     //console.log(getFavorite)
-    res.render('components/index', { title: 'Home', layout: 'layouts/main.hbs', favorites: favorites });
+    res.render('components/homePage', { title: 'Home', layout: 'layouts/main.hbs', favorites: favorites });
+})
+
+app.delete('/', isAuthenticated, async (req, res) => {
+    const body = req.body;
+    console.log(body)
+
+    const response = await User.updateOne({
+        username: req.user.username,
+        $pull: { favorites: body.movieId } 
+    })
+
+    console.log(response)
+    res.json({message: 'deleted movie from favorites'});
+    //res.redirect('/');
+
 })
 
 app.get('/add', isAuthenticated, async (req, res) => {
+    // get the movies from the api if the user searches for a query.
     if (req.query.movie) {
         const movies = await getMovies(req.query.movie);
-        console.log('received')
-        //console.log(movies.results)
-        res.render('components/addFavoriteMovie', { title: 'Add Movie', layout: 'layouts/main.hbs', movies: movies.results });
+        movies.results.forEach( movie => {
+            movie.genre_ids = getGenre(movie.genre_ids)
+            movie.release_date = movie.release_date.split('-')[0]
+        })
+        res.render('components/addMovie', { title: 'Add Movie', layout: 'layouts/main.hbs', movies: movies.results, search: req.query.movie });
     } else {
+        // else none received, render the page with no movies
         console.log('no movie received')
-        res.render('components/addMovie', { title: 'Add Movie', layout: 'layouts/main.hbs' });
+        res.render('components/addMovie', { title: 'Add Movie', layout: 'layouts/main.hbs', search: '' });
     }
     
 })
@@ -121,7 +147,7 @@ app.post('/add', isAuthenticated, async (req, res) => {
                 release_date: req.body.release_date,
                 overview: req.body.overview,
                 vote_average: req.body.vote_average,
-                genres: req.body.genre_ids.split(','),
+                genres: await req.body.genre_ids.split(',') ,
                 posterPath: req.body.poster_path
             })
             const result = await movie.save()
@@ -144,9 +170,65 @@ app.post('/add', isAuthenticated, async (req, res) => {
     }
 })
 
-app.get('/edit', isAuthenticated, (req, res) =>{
-    res.render('components/editMovie', { title: 'Edit Movie', layout: 'layouts/main.hbs' });
-})
+app.get('/recents', isAuthenticated, async (req, res) =>{
+    const movies = await getRecents(req.user.username);
+
+    console.log(movies);
+    if (!movies){
+        console.log('no movies found');
+    }
+
+    res.render('components/recents', { title: 'Recently Watched', layout: 'layouts/main.hbs', movies: movies });
+});
+
+app.post('/recents', isAuthenticated, async (req, res) => {
+    console.log( 'body is', req.body )
+
+    if ( req.body){
+        // add the movie to the database if it is not already there.
+        if ( ! await findMovie(req.body.title) ){
+            const movie = new Movie({
+                movieId: req.body.movieId,
+                title: req.body.title,
+                release_date: req.body.release_date,
+                overview: req.body.overview,
+                vote_average: req.body.vote_average,
+                genres: await req.body.genre_ids.split(',') ,
+                posterPath: req.body.poster_path
+            })
+            const result = await movie.save()
+            console.log( result )
+        }
+        // 
+        const movie = await Movie.find(
+            {movieId: req.body.movieId}
+        )
+        const objectId = movie[0]['_id']
+        const update = await User.updateOne(
+            {username: req.user.username}, 
+            {$push: { recentlyWatched: objectId }}
+        );
+        
+        console.log(update);
+
+        res.json({message: 'received'});
+    }
+
+});
+
+app.delete('/recents', isAuthenticated, async (req, res) => {
+    const body = req.body;
+    console.log(body)
+
+    const response = await User.updateOne({
+        username: req.user.username,
+        $pull: { recentlyWatched: body.movieId } 
+    })
+
+    console.log(response)
+    res.json({message: 'deleted movie from favorites'});
+
+});
 
 app.get('/recommend', isAuthenticated, (req, res) => {
     res.render('components/recommend', { title: 'Recommend', layout: 'layouts/main.hbs' });

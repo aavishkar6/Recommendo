@@ -3,26 +3,35 @@
     <head>
         {{!-- <title>Recommendo</title> --}}
         <link rel="stylesheet" href="stylesheets/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     </head>
     <body>
-        <div id="container"></div>
+        <div id="head-container">
             <header>
-                <h1> Recommendo </h1>
-                <h3> Find your favorite movies and T.V shows from all over the world.</h3>
-            </header>
-            <nav>
-                <div class = "nav">
-                    <ul>
-                        <li><a href="/">Home Page</a></li>
-			            <li><a href="/add">Add Favorites</a></li>
-			            <li><a href="/edit">Edit Preference</a></li>
-                        <li><a href="/recommend">Recommend Me</a></li>
-                        <li><a href="/new">Let's Try New</a></li>
-                    </ul>
+                <div class="header-content">
+                    <h1> Recommendo </h1>
+                    <h3> Find your favorite movies and T.V shows from all over the world.</h3>
+                    <a href="/profile">
+                        <i class="fas fa-user-circle profile-icon"></i>
+                    </a>
                 </div>
-            </nav>
-            <div id="content">
-                {{{ body }}}
+                
+            </header>
+        </div>
+        <nav>
+            <div class = "nav">
+                <ul>
+                    <li><a href="/">Home Page</a></li>
+                    <li><a href="/add">Find Movies</a></li>
+                    <li><a href="/recents">Recently Watched</a></li>
+                    <li><a href="/recommend">Recommend Me</a></li>
+                    <li><a href="/new">Let's Try New</a></li>
+                </ul>
             </div>
+        </nav>
+        <div id="content">
+            {{{ body }}}
+        </div>
     </body>
 </html>

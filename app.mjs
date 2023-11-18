@@ -83,21 +83,18 @@ function isAuthenticated(req, res, next) {
 // redirect all of the authentication routes to authRouter
 app.use('/', authRouter);
 
-//redirect all of the profile routes to profileRouter
-app.use('/', profileRouter);
-
 // redirect all of profile routes to profileRouter
-app.use('/profile', profileRouter);
+app.use('/', profileRouter);
 
 // also redirect componenets to componenetsRouter. Needs to be worked on
 app.get('/', isAuthenticated, async (req, res) => {
     // get favorites of the user
     const favorites = await getFavorite(req.user.username);
-    console.log(favorites)
+    console.log('favorites is ', favorites)
     // parse the genre_ids and release_date
     if ( favorites.length !== 0 ){  
-        favorites.forEach( async movie => {
-            console.log('genre id is ', movie.genre_ids)
+        favorites.forEach( movie => {
+            movie.genre_ids = getGenre(movie.genre_ids)
             movie.release_date = movie.release_date.split('-')[0]
         })
     }
@@ -123,6 +120,7 @@ app.delete('/', isAuthenticated, async (req, res) => {
 app.get('/add', isAuthenticated, async (req, res) => {
     // get the movies from the api if the user searches for a query.
     if (req.query.movie) {
+        console.log('movie is ', req.query.movie);
         const movies = await getMovies(req.query.movie);
         movies.results.forEach( movie => {
             movie.genre_ids = getGenre(movie.genre_ids)

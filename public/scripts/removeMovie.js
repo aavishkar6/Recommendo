@@ -1,6 +1,6 @@
 
-const removeFromFavorite = document.querySelectorAll('.remove-from-favorites');
-const removeFromRecents = document.querySelectorAll('.remove');
+const removeFromFavorite = document.querySelectorAll('button.btn.btn-primary.removefav');
+const removeFromRecents = document.querySelectorAll('button.btn.btn-primary.removeRecents');
 
 removeFromFavorite.forEach( button => {
     button.addEventListener('click', removeFromFavorites);
@@ -11,9 +11,9 @@ removeFromRecents.forEach( button => {
 });
 
 function removeRecents(event) {
-    const movieContainer = event.target.closest('.movie-card');
+    const movieContainer = event.target.closest('.container.py-2');
     const movieId = movieContainer.querySelector('.movie-id').textContent;
-    const movieName = movieContainer.querySelector('.movie-title').textContent;
+    const movieName = movieContainer.querySelector('.postcard__title.blue').textContent;
     const data = { movieId: movieId };
     async function postJSON(data) {
         try {
@@ -38,10 +38,10 @@ function removeRecents(event) {
 }
 
 function removeFromFavorites(event) {
-    const movieContainer = event.target.closest('.movie-card');
+    const movieContainer = event.target.closest('.container.py-2');
     const movieId = movieContainer.querySelector('.movie-id').textContent;
-    const movieName = movieContainer.querySelector('.movie-title').textContent;
-    
+    const movieName = movieContainer.querySelector('.postcard__title.blue').textContent;
+
     const data = { movieId: movieId };
     async function postJSON(data) {
         try {
@@ -55,7 +55,7 @@ function removeFromFavorites(event) {
 
             const result = await response.json();
             console.log("Success:", result);
-            alert(`Movie removed from favorites! Movie title was ${movieName}`);
+            alert(`${movieName} removed from favorites!`);
 
         } catch (error) {
             console.error("Error:", error);

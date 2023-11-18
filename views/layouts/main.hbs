@@ -1,37 +1,53 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {{!-- <title>Recommendo</title> --}}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{title}}</title>
         <link rel="stylesheet" href="stylesheets/main.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     </head>
     <body>
-        <div id="head-container">
-            <header>
-                <div class="header-content">
-                    <h1> Recommendo </h1>
-                    <h3> Find your favorite movies and T.V shows from all over the world.</h3>
-                    <a href="/profile">
-                        <i class="fas fa-user-circle profile-icon"></i>
-                    </a>
-                </div>
-                
-            </header>
+        <div class="container">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">HomePage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add">Find Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/recents">Recently Watched</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/recommend" tabindex="-1" aria-disabled="true">Recommend</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new" tabindex="-1" aria-disabled="true">Let's Try new</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Profile</a>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/profile">My Profile</a></li>
+                    <li><a class="dropdown-item" href="/editProfile">Edit Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
         </div>
-        <nav>
-            <div class = "nav">
-                <ul>
-                    <li><a href="/">Home Page</a></li>
-                    <li><a href="/add">Find Movies</a></li>
-                    <li><a href="/recents">Recently Watched</a></li>
-                    <li><a href="/recommend">Recommend Me</a></li>
-                    <li><a href="/new">Let's Try New</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div id="content">
-            {{{ body }}}
+
+        <div class="container">
+                {{{body}}}
         </div>
+        
+    
+  
+
+
     </body>
 </html>

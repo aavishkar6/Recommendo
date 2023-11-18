@@ -2,57 +2,76 @@
 <html>
     <head>
         <title>{{title}}</title>
+        <link rel="stylesheet" href="stylesheets/profile.css">
     </head>
     <body>
         {{!< layouts/main}}
-        <h1> Your Profile </h1>
-        <div class="user-profile">
-            <h1>Username is {{user.username}}</h1>
-            <h1>Email is {{user.email}}</h1>
-            <div class="genre">
-                <h1>Favorite Genres is {{user.genres}}</h1>
-            </div>
-            <h1> Recents are </h1>
-            <div class="recents">
-                <div class="container">
-                {{#each recents}}
-                    <div class="movie-card">
-                        <img class="movie-image" src="https://image.tmdb.org/t/p/original{{posterPath}}" alt="Movie Poster"/>
-                        <div class="movie-info">
-                            <h2 class="movie-title">{{title}}</h2>
-                            <p class="movie-genres">{{genres}}</p>
-                            <p class="movie-release-date">Release Date: {{release_date}}</p>
-                            <p class="movie-description">
-                                {{overview}}
-                            </p>
-                            <p class="movie-id">{{id}}</p>
-                        </div>
-                    </div>        
-                {{/each}}
+        <div class="container mt-5">
+            <h1> Your Profile </h1>
+            <h1> <a href="/editProfile">Edit my Profile</a></h1>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Name : {{user.username}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Email : {{user.email}}</h6>
+                    <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Favorite Genres
+                                </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{#each user.genres}}
+                                        <span class="badge bg-primary">{{this}}</span>
+                                    {{/each}}
+                                </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Favorite Movies
+                                </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{#each favorites}}
+                                        <div class="row">
+                                            <div class="card" style="width: 18rem;">
+                                                <img src="https://image.tmdb.org/t/p/original{{posterPath}}" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{title}}</h5>
+                                                    <p class="card-text">{{genres}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Recently Watched
+                                </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{#each recents}}
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="https://image.tmdb.org/t/p/original{{posterPath}}" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{title}}</h5>
+                                                <p class="card-text">{{genres}}</p>
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                 </div>
-            </div>
-            <h1> Favorites are </h1>
-            <div class="favorites">
-                <div class="container">
-                {{#each favorites}}
-                    <div class="movie-card">
-                        <img class="movie-image" src="https://image.tmdb.org/t/p/original{{posterPath}}" alt="Movie Poster"/>
-                        <div class="movie-info">
-                            <h2 class="movie-title">{{title}}</h2>
-                            <p class="movie-genres">{{genres}}</p>
-                            <p class="movie-release-date">Release Date: {{release_date}}</p>
-                            <p class="movie-description">
-                                {{overview}}
-                            </p>
-                            <p class="movie-id">{{id}}</p>
-                        </div>
-                    </div>        
-                {{/each}}
-                </div>
-            </div>
-        
-            <div class="people">
-                <h1>favorite people are {{people}}</h1>
             </div>
         </div>
     </body>

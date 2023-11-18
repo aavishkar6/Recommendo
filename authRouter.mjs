@@ -35,7 +35,6 @@ authRouter.post('/signup', async (req, res) => {
         const message = 'Please enter all fields';
         res.render('auth/signup', { layout : 'layouts/auth.hbs', error : message});
     }
-       
     const pattern = new RegExp(`^${req.body.username}`,'i'); 
     const user = await User.findOne({ username: { $regex: pattern } });
     try {

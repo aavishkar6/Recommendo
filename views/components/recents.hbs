@@ -6,24 +6,38 @@
     </head>
     <body>
         {{!< layouts/main }}
-        <h1>Recently Watched Movies</h1>
-        <div class="container">
-            {{#each movies}}
-                <div class="movie-card">
-                    <img class="movie-image" src="https://image.tmdb.org/t/p/original{{posterPath}}" alt="Movie Poster"/>
-                    <div class="movie-info">
-                        <h2 class="movie-title">{{title}}</h2>
-                        <p class="movie-genres">{{genre_ids}}</p>
-                        <p class="movie-release-date">Release Date: {{release_date}}</p>
-                        <p class="movie-popularity">Popularity: {{popularity}}</p>
-                        <p class="movie-description">
-                            {{overview}}
-                        </p>
-                        <p class="movie-id">{{id}}</p>
-                        <button class="remove">Remove from recents</button>
+        <div class="h1 text-center text-dark" id="pageHeaderTitle">Recently Watched</div>
+        
+        {{#each movies}}
+            <section class="light">
+            <div class="container py-2">
+                <article class="postcard light blue">
+                    <a class="postcard__img_link" href="#">
+                        <img class="postcard__img" src="https://image.tmdb.org/t/p/original{{posterPath}}" alt="{{title}}" />
+                    </a>
+                    <div class="postcard__text t-dark">
+                        <h1 class="postcard__title blue">{{title}}</h1><br>
+                        <div class="postcard__subtitle small">
+                            <time>
+                                <i class="fas fa-calendar-alt mr-2"></i>{{release_date}}
+                            </time>
+                        </div>
+                        <br>
+                        <div class="postcard__bar"></div>
+                        <div class="postcard__preview-txt">{{overview}}</div>
+                        <br>
+                        <ul class="postcard__tagbox">
+                            <li class="tag__item"><i class="fas fa-clock mr-2"></i>{{genres}}</li>
+                        </ul>
+                        <p class="movie-id" style="display:none;">{{id}}</p>
+                        <button id="remove-from-recents" class="btn btn-primary removeRecents" type="submit">Remove from Recently Watched</button>
+
                     </div>
-                </div>        
-            {{/each}}
-        </div>
+                </article>
+            </div>
+                
+            </section>    
+        {{/each}}
+
     </body>
 </htm>

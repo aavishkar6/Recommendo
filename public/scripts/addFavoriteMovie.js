@@ -1,5 +1,5 @@
-const addToFavoritesButtons = document.querySelectorAll('.add-to-favorites');
-const addToRecentsButtons = document.querySelectorAll('.add-to-recents');
+const addToFavoritesButtons = document.querySelectorAll('button.btn.btn-primary.favorites');
+const addToRecentsButtons = document.querySelectorAll('button.btn.btn-primary.recents');
 
 addToFavoritesButtons.forEach( button => {
     button.addEventListener('click', addToFavorites);
@@ -10,16 +10,14 @@ addToRecentsButtons.forEach( button => {
 });
 
 function addToFavorites(event) {
-    const movieContainer = event.target.closest('.movie-card');
-    const movieName = movieContainer.querySelector('.movie-title').textContent;
-    const releaseDate = movieContainer.querySelector('.movie-release-date').textContent.split(':')[1].trim();
-    const overview = movieContainer.querySelector('.movie-description').textContent.trim();
-    const rating = movieContainer.querySelector('.movie-popularity').textContent.split(':')[1].trim();
-    const genres = movieContainer.querySelector('.movie-genres').textContent;
+    const movieContainer = event.target.closest('.container.py-2');
+    const movieName = movieContainer.querySelector('.postcard__title.blue').textContent;
+    const releaseDate = movieContainer.querySelector('.postcard__subtitle.small').textContent.trim();
+    const overview = movieContainer.querySelector('.postcard__preview-txt').textContent.trim();
+    const rating = movieContainer.querySelector('.popularity').textContent;;
+    const genres = movieContainer.querySelector('.tag__item').textContent;
     const movieId = movieContainer.querySelector('.movie-id').textContent;
-    const moviePoster = movieContainer.querySelector('.movie-image').src;
-    console.log(movieId)
-    console.log(movieName);
+    const moviePoster = movieContainer.querySelector('.postcard__img').src;
 
     async function postJSON(data) {
         try {
@@ -33,7 +31,7 @@ function addToFavorites(event) {
 
             const result = await response.json();
             console.log("Success:", result);
-            alert(`Movie added to favorites! Movie title was ${movieName}`);
+            alert(`${movieName} added to favorites!`);
 
         } catch (error) {
             console.error("Error:", error);
@@ -49,18 +47,22 @@ function addToFavorites(event) {
         genre_ids: genres,
         poster_path: moviePoster
         };
+
     postJSON(data);
+    event.preventDefault();
 }
 
 function addToRecents(event) {
-    const movieContainer = event.target.closest('.movie-card');
-    const movieName = movieContainer.querySelector('.movie-title').textContent;
-    const releaseDate = movieContainer.querySelector('.movie-release-date').textContent.split(':')[1].trim();
-    const overview = movieContainer.querySelector('.movie-description').textContent.trim();
-    const rating = movieContainer.querySelector('.movie-popularity').textContent.split(':')[1].trim();
-    const genres = movieContainer.querySelector('.movie-genres').textContent;
+
+    const movieContainer = event.target.closest('.container.py-2');
+    const movieName = movieContainer.querySelector('.postcard__title.blue').textContent;
+    const releaseDate = movieContainer.querySelector('.postcard__subtitle.small').textContent.trim();
+    const overview = movieContainer.querySelector('.postcard__preview-txt').textContent.trim();
+    const rating = movieContainer.querySelector('.popularity').textContent;;
+    const genres = movieContainer.querySelector('.tag__item').textContent;
     const movieId = movieContainer.querySelector('.movie-id').textContent;
-    const moviePoster = movieContainer.querySelector('.movie-image').src;
+    const moviePoster = movieContainer.querySelector('.postcard__img').src;
+
     console.log(movieId)
     console.log(movieName);
 
@@ -76,7 +78,7 @@ function addToRecents(event) {
 
             const result = await response.json();
             console.log("Success:", result);
-            alert(`Movie added to recently watched! Movie title was ${movieName}`);
+            alert(`${movieName} added to recently watched!`);
 
         } catch (error) {
             console.error("Error:", error);
@@ -93,4 +95,6 @@ function addToRecents(event) {
         poster_path: moviePoster
         };
     postJSON(data);
+
+    event.preventDefault();
 }

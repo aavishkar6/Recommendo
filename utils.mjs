@@ -12,6 +12,7 @@ export async function getMovies (movie){
         const response = await axios.get(
         `https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=398b5afb4273aa1b5552a5b91071c1e6`
         )
+        console.log(response.data.results);
         return (response.data)
     } catch (error) {
         console.log(error)
@@ -41,7 +42,7 @@ export async function getFavorite(username){
         )
         //console.log('user is ', user)
         const movies = []
-        await user.favorites.forEach( async (objectId) => {
+        user.favorites.forEach( async (objectId) => {
             const movie = await Movie.findOne({ _id: objectId });
             movies.push(movie)
         })
@@ -74,17 +75,17 @@ export async function getRecents(username){
 
 export function getGenre(genre_ids){
     //import json file named genre.json
-    const response = fs.readFile( './genreId.json', 'utf8', (err, data) => {
-        if (err) {
-            console.log(`Error reading file from disk: ${err}`);
-        } else {
-            const genre = JSON.parse(data);
-            let res = ''
-            genre_ids.forEach(id => {
-                res += genre[id] + ','
-            })
-            return res
-        }
-    });
+    try {
+        const response = JSON.parse(fs.readFileSync('./genreId.json', 'utf8'));
+        let res = [];
+        genre_ids.forEach(id => {
+            res.push(response[id])
+        });
+        console.log(res)
+        return res
+    } catch (err) {
+        console.log(err)
+    }
+    
     return response
 }

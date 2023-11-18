@@ -33,7 +33,6 @@ authRouter.post('/signup', async (req, res) => {
 
     const pattern = new RegExp(`^${req.body.username}`,'i'); 
     const user = await User.findOne({ username: { $regex: pattern } });
-    console.log(user);
     try {
         if ( user ) {
             console.log('User already exists. Please choose another username.')
@@ -52,7 +51,7 @@ authRouter.post('/signup', async (req, res) => {
         }
     } catch(err){
         console.log(err);
-        res.render('auth/signup', {error : 'Error signing up'});
+        res.render('auth/signup', {layout :'layouts/auth.hbs', error : 'Error signing up. Please try again.'});
     }
 });
 

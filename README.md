@@ -32,15 +32,11 @@ An Example movies document
 {
   movieId: //Unique identifier for the movie
   title: "Shawshank Redemption",
-  year: // year of release
-  genres: //genre of movie
-  rating: //rating for the movie.
-  actors: //list of actors that feature in the movie. (references People document)
-  director: //list of director for the movie.(references People document)
-  description: //short summary of the movie
-  image: //poster for the image.
-  region: //region for this version of the title.
-  time: //primary runTime of the movie.
+  release_date: // year of release
+  overview: //description of the movie
+  vote_average: //rating for the movie.
+  genres: // genre associated with the movie
+  posterPath: //poster for the image.
 }
 ```
 An Example Actors document
@@ -94,12 +90,14 @@ An Example Actors document
 
 ## Research Topics
 
-* (4 points) Include some sort of movie API to get the data.
+* (2 points) Include some sort of movie API to get the data.
   * I am looking to include some kind of movie API to query the movie and store it in the database. I will not be storing all of the movies in the database.
 * (4 points) Perform client side validation using jQuery.
   * I want to perform client-side form validation using jquery plugin.
 * (4 points) Recommendation algorithm.
   * I am looking into implemeting some sort of recommender system that recommends movies to the user.
+* (2 points) Include Boostrap for Css framework
+  * I have edited and included bootstrap for css framework.
 
 ## [Link to Initial Main Project File](app.mjs) 
 

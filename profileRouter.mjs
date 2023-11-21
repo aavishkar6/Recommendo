@@ -4,7 +4,6 @@ import mongoose, { get } from 'mongoose';
 import fs from 'fs';
 import './db.mjs';
 import { getGenre, getFavorite, getRecents } from './utils.mjs';
-//import argon2 from 'argon2';
 
 // construct User model from User schema
 const User = mongoose.model('User');

@@ -52,32 +52,6 @@ An Example Actors document
 
 ## [Link to Commented First Draft Schema](db.mjs) 
 
-## Wireframes
-
-/ - homepage for the web app
-
-![homepage](documentation/homePage.jpg)
-
-/addFavorite - page for adding favorite movies
-
-![favorites](documentation/favorites.jpg)
-
-/edit - page for editing preferences such as genres and actors and region
-
-![preferences](documentation/preferences.jpg)
-
-/recommended - page for displaying recommendations based on preferences
-
-![recommendation](documentation/recommendation.jpg)
-
-/newpicks - page for displaying movies outside one's favorites.
-
-![newPicks](documentation/newPicks.jpg)
-
-
-## Site map
-
-![siteMap](documentation/siteMap.jpeg)
 
 ## User Stories or Use Cases
 
